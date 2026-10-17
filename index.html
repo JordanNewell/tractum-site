@@ -250,6 +250,20 @@
     gap: var(--space-8);
     align-items: center;
   }
+  .hero-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+  .hero-brand img { width: 48px; height: auto; display: block; }
+  .hero-brand .name {
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: -0.01em;
+  }
   .hero-left h1 {
     font-family: 'JetBrains Mono', monospace;
     font-weight: 700;
@@ -1278,6 +1292,8 @@
   @media (max-width: 900px) {
     section.hero { grid-template-columns: 1fr; padding: 13.5rem var(--space-5) var(--space-8); }
     .code-solo { margin: 0 var(--space-2); }
+    .hero-brand img { width: 36px; }
+    .hero-brand .name { font-size: 34px; }
     .hero-left h1 { font-size: 30px; }
     .features { grid-template-columns: repeat(2, 1fr); }
     .wire { grid-template-columns: 1fr; }
@@ -1346,6 +1362,8 @@
   /* Phone-sized: even tighter */
   @media (max-width: 480px) {
     section.hero { padding: 13.5rem var(--space-4) var(--space-7); }
+    .hero-brand img { width: 28px; }
+    .hero-brand .name { font-size: 26px; }
     .hero-left h1 { font-size: 26px; }
     .section-head h2 { font-size: 24px; }
     .section-head p { font-size: 15px; }
@@ -1396,6 +1414,10 @@
 <!-- ============================ HERO ============================ -->
 <section class="hero">
   <div class="hero-left">
+    <div class="hero-brand">
+      <img src="assets/tractum-mark.svg" alt="">
+      <span class="name">Tractum</span>
+    </div>
     <h1>Verifiable multi-agent <span class="accent">consensus</span>.</h1>
     <p class="sub">
       Three specialists. One signed answer. Disagreement surfaced, not averaged away — and every result lands as a tamper-evident receipt any agent, auditor, or future teammate can verify.
