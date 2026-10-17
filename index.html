@@ -1285,16 +1285,29 @@
 
   /* ============================ RESPONSIVE ============================ */
   @media (max-width: 900px) {
-    section.hero { grid-template-columns: 1fr; padding: 13.5rem var(--space-5) var(--space-8); }
+    section.hero { grid-template-columns: 1fr; padding: calc(13.5rem + 5px) var(--space-5) var(--space-8); }
     .code-solo { margin: 0 var(--space-2); }
     .hero-left h1 { font-size: 30px; }
     .features { grid-template-columns: repeat(2, 1fr); }
     .wire { grid-template-columns: 1fr; }
     .cta-inner { grid-template-columns: 1fr; }
     .cta-inner h2 { font-size: 28px; }
-    .corner-nav { top: 1.5rem; right: 1.5rem; margin-top: 0; }
-    .corner-mark svg { width: 48px; height: auto; }
-    .theme-toggle { top: 1.5rem; left: 1.5rem; }
+    .corner-nav {
+      top: 1.25rem;
+      left: 4.5rem;
+      right: 1.25rem;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      margin-top: 0;
+    }
+    .corner-mark { margin-bottom: 0; }
+    .corner-mark svg { width: 40px; height: auto; }
+    .corner-wordmark { margin: 0; font-size: 0.9rem; }
+    .corner-socials { margin-top: 0; }
+    .theme-toggle { top: 1.25rem; left: 1.25rem; }
     .compare-row { grid-template-columns: 120px 1fr 1fr; }
     .compare-row > div { padding: var(--space-3); font-size: 13px; }
     .section-head h2 { font-size: 30px; }
@@ -1354,7 +1367,7 @@
 
   /* Phone-sized: even tighter */
   @media (max-width: 480px) {
-    section.hero { padding: 13.5rem var(--space-4) var(--space-7); }
+    section.hero { padding: calc(13.5rem + 5px) var(--space-4) var(--space-7); }
     .hero-left h1 { font-size: 26px; }
     .section-head h2 { font-size: 24px; }
     .section-head p { font-size: 15px; }
