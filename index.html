@@ -422,6 +422,7 @@
 
   /* ============================ SECTION ============================ */
   section.block {
+    width: 100%; /* flex-column body shrink-wraps children without this — long <pre> stretches the page */
     max-width: var(--max-w);
     margin: 0 auto;
     padding: var(--space-10) var(--space-6);
@@ -1357,12 +1358,58 @@
     .section-head p { font-size: 15px; }
     main.content,
     section.block { padding-left: var(--space-4); padding-right: var(--space-4); }
+
+    /* Body rhythm: kill the dead air — 22 screens was unusable */
+    section.block { padding-top: var(--space-7); padding-bottom: var(--space-7); }
+    section.cta-block { padding: var(--space-8) var(--space-4); }
+    .section-head { margin-bottom: var(--space-5); }
+    .section-head p { margin-top: var(--space-2); }
+    .strip-inner { gap: var(--space-2) var(--space-4); }
+
+    /* Code: wrap, don't scroll sideways */
+    .code-card pre { font-size: 11.5px; padding: var(--space-4); white-space: pre-wrap; word-break: break-word; }
+    .use-case .code-mini { font-size: 11px; padding: var(--space-3); }
+    .wire-right, .code-mini { max-width: 100%; }
+
+    /* Cards: tighter interiors */
     .feature,
     .use-case,
     .longevity-card,
     .ensemble-card,
     .diy-counter { padding: var(--space-5); }
-    .code-card pre { font-size: 11.5px; padding: var(--space-4); }
+    .features.cols-2 .feature p, .feature p, .use-case p,
+    .tradeoff-col li, .security-col li, .diy-counter li,
+    .longevity-card p { line-height: 1.5; }
+    .use-case h3 { margin-bottom: var(--space-2); }
+    .use-case .source-link { margin-top: var(--space-3); }
+
+    /* Skim-mode density: lists, flow steps, verifier */
+    .tradeoff-col li, .security-col li, .diy-counter li { padding-top: 4px; padding-bottom: 4px; font-size: 13.5px; }
+    .flow-step { padding: 8px 12px; margin-bottom: 4px; font-size: 11px; }
+    .flow-arrow { font-size: 14px; }
+    .ensemble-card .takeaway { margin-top: var(--space-4); padding-top: var(--space-3); }
+    .arch-layer { padding: var(--space-3) var(--space-4); }
+    .verifier-input-col textarea { min-height: 140px; font-size: 11px; }
+    .verify-row code { font-size: 10.5px !important; }
+    .wire-right { font-size: 11px; }
+
+    /* Code samples in use-case cards live in the docs — drop on phone */
+    .use-case .code-mini { display: none; }
+
+    /* Phone = skim path: drop marketing-depth blocks, keep every section */
+    .diy-counter { display: none; }
+    .ensemble-grid { grid-template-columns: 1fr; }
+    .ensemble-card:not(.clau) { display: none; }
+    .feature .icon, .features.cols-2 .feature .icon { display: none; }
+    .feature p, .features.cols-2 .feature p { font-size: 13.5px; line-height: 1.5; }
+    .features.cols-2 .feature { padding: var(--space-5); }
+    .features.cols-2 .feature h3 { font-size: 18px; margin-bottom: var(--space-2); }
+    .features.cols-2 .feature p { margin-bottom: var(--space-3); }
+    .tradeoff-col li strong, .security-col li strong { display: inline; }
+    .longevity-card .icon { display: none; }
+    .longevity-card p, .wire-left p, .section-head p { font-size: 13.5px; line-height: 1.45; }
+    .security-col li, .tradeoff-col li { font-size: 13px; line-height: 1.45; }
+    footer { padding-top: var(--space-8); }
   }
 </style>
 </head>
