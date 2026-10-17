@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Changelog — Tractum</title>
+  <meta name="description" content="Every tractum release, on the record — v0.1.0 to v0.5.0. Signed consensus for agents.">
+  <link rel="canonical" href="https://tractum.dev/changelog">
+  <link rel="icon" href="favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:title" content="Changelog — Tractum">
+  <meta property="og:description" content="Every tractum release, on the record — v0.1.0 to v0.5.0.">
+  <meta property="og:url" content="https://tractum.dev/changelog">
+  <meta property="og:image" content="https://tractum.dev/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>try { if (localStorage.getItem('tractum-theme') === 'light') document.documentElement.classList.add('light'); } catch {}</script>
+  <style>
+  :root {
+    --bg:       #0A0A0A;
+    --surface:  #101010;
+    --surface-2:#141414;
+    --border:   #1F1F1F;
+    --border-2: #2A2A2A;
+    --text:     #FFFFFF;
+    --muted:    #9E9E9E;
+    --muted-2:  #6E6E6E;
+    --primary:  #FFB000;
+    --accent:   #FFC94D;
+    --r-sm: 4px;
+    --r-md: 8px;
+    --r-lg: 12px;
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-5: 24px;
+    --space-6: 32px;
+    --space-7: 48px;
+    --space-8: 64px;
+    --space-9: 96px;
+    --space-10: 128px;
+    --max-w: 1200px;
+  }
+  :root.light {
+    --bg:       #F7F6F2;
+    --surface:  #FFFFFF;
+    --surface-2:#F1EFEA;
+    --border:   #E3E1DB;
+    --border-2: #D5D3CC;
+    --text:     #141414;
+    --muted:    #686D76;
+    --muted-2:  #9A9A9A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+  }
+  a { color: var(--primary); text-decoration: none; }
+  a:hover { color: var(--accent); }
+  ::selection { background: var(--primary); color: var(--bg); }
+
+  /* ======================= CORNER NAV ======================= */
+  .corner-nav {
+    position: absolute;
+    top: 40px;
+    right: clamp(1.5rem, 3.2vw, 3.5rem);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.55rem;
+    margin-top: 1.4rem;
+  }
+  .corner-mark {
+    display: block;
+    text-decoration: none;
+    margin-bottom: 0.55rem;
+  }
+  .corner-mark { color: var(--text); }
+  .corner-mark svg { width: 76px; height: auto; display: block; }
+  .bubble {
+    display: inline-block;
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    padding: 0.28rem 0.85rem;
+    font-size: 0.75rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .bubble:hover { border-color: var(--primary); color: var(--primary); }
+  .bubble.here { border-color: var(--primary); color: var(--primary); }
+  .theme-toggle {
+    position: absolute;
+    top: 40px;
+    left: clamp(1.5rem, 3.2vw, 3.5rem);
+    z-index: 100;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+  }
+  .theme-toggle:hover { color: var(--primary); border-color: var(--primary); }
+  .theme-toggle svg { width: 20px; height: 20px; }
+  .theme-toggle .sun, :root.light .theme-toggle .moon { display: none; }
+  :root.light .theme-toggle .sun { display: block; }
+
+  /* ======================= HEADER ======================= */
+  .cl-head {
+    width: 100%;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: clamp(9rem, 22vh, 12.5rem) var(--space-6) var(--space-8);
+  }
+  .cl-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--primary);
+    margin-bottom: var(--space-3);
+  }
+  .cl-title {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.75rem, 7vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    margin-left: -0.05em;
+    margin-bottom: var(--space-5);
+  }
+  .cl-lede {
+    color: var(--muted);
+    font-size: 17px;
+    max-width: 560px;
+    line-height: 1.55;
+  }
+  .cl-lede code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85em;
+    color: var(--accent);
+  }
+
+  /* ======================= TIMELINE ======================= */
+  .cl-wrap {
+    width: 100%;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 var(--space-6) var(--space-9);
+  }
+  .cl-list {
+    border-left: 1px solid var(--border);
+  }
+  .release {
+    position: relative;
+    padding: 0 0 var(--space-8) var(--space-7);
+  }
+  .release:last-child { padding-bottom: 0; }
+  .release::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 8px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--primary);
+  }
+  .release.old::before { border-color: var(--border-2); }
+  .rel-meta {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-3);
+  }
+  .rel-ver {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text);
+    border: 1px solid var(--primary);
+    border-radius: var(--r-full);
+    padding: 2px 12px;
+  }
+  .release.old .rel-ver { border-color: var(--border-2); color: var(--muted); }
+  .rel-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--muted-2);
+    letter-spacing: 0.06em;
+  }
+  .rel-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+  }
+  .rel-head {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: var(--space-3);
+    max-width: 640px;
+    line-height: 1.35;
+  }
+  .rel-list { list-style: none; max-width: 680px; }
+  .rel-list li {
+    position: relative;
+    padding: var(--space-1) 0 var(--space-1) var(--space-5);
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .rel-list li::before {
+    content: '+';
+    position: absolute;
+    left: 0;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--primary);
+    font-weight: 700;
+  }
+  .rel-list li.fix::before { content: '×'; color: var(--muted-2); }
+  .rel-list li strong { color: var(--text); font-weight: 600; }
+  .rel-list li code, .cl-lede code, .rel-head code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.86em;
+    color: var(--accent);
+  }
+
+  /* ======================= FOOTER ======================= */
+  footer { margin-top: auto; padding: var(--space-9) 24px 40px; }
+  .foot-meta {
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--muted-2);
+    text-transform: uppercase;
+    letter-spacing: 0.10em;
+    margin-bottom: var(--space-5);
+  }
+  .foot-meta .sep { color: var(--border-2); margin: 0 10px; }
+  .foot-icons { display: flex; justify-content: center; }
+  .newell-logo { display: block; height: 44px; width: auto; opacity: 0.9; }
+
+  @media (max-width: 900px) {
+    .corner-nav { top: 1.5rem; right: 1.5rem; margin-top: 0; }
+    .corner-mark svg { width: 48px; height: auto; }
+    .theme-toggle { top: 1.5rem; left: 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .cl-head { padding: 8.375rem var(--space-4) var(--space-7); }
+    .cl-wrap { padding: 0 var(--space-4) var(--space-8); }
+    .cl-title { font-size: clamp(2.5rem, 11vw, 3.25rem); }
+    .cl-lede { font-size: 14.5px; }
+    .release { padding-left: var(--space-5); padding-bottom: var(--space-7); }
+    .rel-head { font-size: 17px; }
+    .rel-list li { font-size: 13px; line-height: 1.5; }
+    footer { padding-top: var(--space-8); }
+    .newell-logo { height: 36px; }
+  }
+  </style>
+</head>
+<body>
+
+<button class="theme-toggle" type="button" aria-label="toggle day/night theme">
+  <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+
+<nav class="corner-nav" aria-label="site">
+  <a class="corner-mark" href="/" aria-label="Tractum — home">
+    <svg viewBox="0 0 264 240" width="76" height="69" role="img" aria-label="Tractum quorum mark">
+      <rect x="24" y="84" width="24" height="108" rx="12" fill="#3D3D3D"/>
+      <rect x="72" y="24" width="24" height="168" rx="12" fill="#FFB000"/>
+      <rect x="120" y="24" width="24" height="168" rx="12" fill="#FFB000"/>
+      <rect x="168" y="24" width="24" height="168" rx="12" fill="#FFB000"/>
+      <rect x="216" y="84" width="24" height="108" rx="12" fill="#3D3D3D"/>
+      <rect x="24" y="192" width="216" height="24" rx="12" fill="currentColor"/>
+    </svg>
+  </a>
+  <a class="bubble" href="https://jordannewell.github.io/tractum/">docs</a>
+  <a class="bubble" href="https://github.com/JordanNewell/tractum">github</a>
+</nav>
+
+<header class="cl-head">
+  <div class="cl-eyebrow">// Changelog</div>
+  <h1 class="cl-title">On the record.</h1>
+  <p class="cl-lede">Every release of <code>tractum</code> since the first signed answer — <a href="https://keepachangelog.com/en/1.1.0/">Keep a Changelog</a> format, newest first. The full diffs live on GitHub.</p>
+</header>
+
+<main class="cl-wrap">
+  <div class="cl-list">
+
+    <article class="release">
+      <div class="rel-meta">
+        <span class="rel-ver">v0.5.0</span>
+        <span class="rel-date">2026-10-17</span>
+        <a class="rel-link" href="https://github.com/JordanNewell/tractum/releases/tag/v0.5.0">release notes →</a>
+      </div>
+      <h2 class="rel-head">claudeway → tractum. <code>.curt</code> linkage. Self-verifying MCP receipts.</h2>
+      <ul class="rel-list">
+        <li><strong>The rename</strong> — package, module, CLI (<code>tractum-mcp</code>) and env vars (<code>TRACTUM_*</code>). Wire-format type tags stay <code>claudeway.*</code> so 0.2–0.4 receipts keep verifying.</li>
+        <li><strong>.curt linkage</strong> — bind a signed receipt to .curt transcript evidence; the linkage hash lives <em>inside</em> the signed payload, so the aggregate signature covers it.</li>
+        <li><strong>MCP always signs</strong> — ephemeral operator key by default; <code>TRACTUM_REQUIRE_PINNED_KEY=1</code> to forbid it; <code>TRACTUM_MCP_DRY_RUN=1</code> offline stub mode.</li>
+        <li><strong>227 tests</strong>; first .curt-native consumer (<code>consensus-receipt</code> extension).</li>
+      </ul>
+    </article>
+
+    <article class="release">
+      <div class="rel-meta">
+        <span class="rel-ver">v0.4.0</span>
+        <span class="rel-date">2026-10-01</span>
+        <a class="rel-link" href="https://github.com/JordanNewell/tractum/releases/tag/v0.4.0">release notes →</a>
+      </div>
+      <h2 class="rel-head">Per-agent signed statements + k-of-n quorum receipts.</h2>
+      <ul class="rel-list">
+        <li><strong>Every agent signs its own stance</strong> — answer, confidence, model, role, task, round. The receipt becomes a countable multi-sig.</li>
+        <li><strong>v2 receipt payload</strong> carries the statements plus a quorum threshold k (default: unanimous). v1 receipts verify forever.</li>
+        <li><strong><code>verify_receipt_detailed</code></strong> — per-statement verdicts, cross-task replay detection, operator + per-agent key pinning.</li>
+        <li><strong>New adversarial tests</strong> for the statement attack surface; honest threat-model note: a signature proves self-consistency, not key custody.</li>
+      </ul>
+    </article>
+
+    <article class="release old">
+      <div class="rel-meta">
+        <span class="rel-ver">v0.3.2</span>
+        <span class="rel-date">2026-07-26</span>
+        <a class="rel-link" href="https://github.com/JordanNewell/tractum/releases/tag/v0.3.2">release notes →</a>
+      </div>
+      <h2 class="rel-head">Maintenance: OIDC + OG image.</h2>
+      <ul class="rel-list">
+        <li><strong>OIDC trusted publishing</strong> — PyPI releases mint short-lived tokens; no long-lived API secrets on the repo.</li>
+        <li><strong>Canonical OG image</strong> — social previews render the card instead of a blank tile.</li>
+      </ul>
+    </article>
+
+    <article class="release old">
+      <div class="rel-meta">
+        <span class="rel-ver">v0.3.1</span>
+        <span class="rel-date">2026-07-26</span>
+        <a class="rel-link" href="https://github.com/JordanNewell/tractum/releases/tag/v0.3.1">release notes →</a>
+      </div>
+      <h2 class="rel-head">Windows <code>[benchmark]</code> hotfix.</h2>
+      <ul class="rel-list">
+        <li class="fix"><strong><code>[benchmark]</code> no longer pulls litellm</strong> — its Rust toolchain broke Windows installs; the killer demo degrades gracefully without it.</li>
+      </ul>
+    </article>
+
+    <article class="release old">
+      <div class="rel-meta">
+        <span class="rel-ver">v0.3.0</span>
+        <span class="rel-date">2026-07-25</span>
+        <a class="rel-link" href="https://github.com/JordanNewell/tractum/releases/tag/v0.3.0">release notes →</a>
+      </div>
+      <h2 class="rel-head">The coordination layer the frameworks punted on.</h2>
+      <ul class="rel-list">
+        <li><strong>Signed multi-agent consensus</strong> with surfaced disagreement — <code>WeightedVote</code> + <code>Debate</code>, Ed25519 and ML-DSA-65 backends, RFC 6962 transparency log, three transports.</li>
+        <li><strong>Benchmark:</strong> +7/20 over a single Claude call on hard questions.</li>
+        <li><strong>First signed consensus live on Nostr</strong> — NIP-78 event, five public relays, verifiable by anyone.</li>
+      </ul>
+    </article>
+
+    <article class="release old">
+      <div class="rel-meta">
+        <span class="rel-ver">v0.2.0</span>
+        <span class="rel-date">2026-07-25</span>
+        <a class="rel-link" href="https://github.com/JordanNewell/tractum/releases/tag/v0.2.0">release notes →</a>
+      </div>
+      <h2 class="rel-head">Initial public release.</h2>
+      <ul class="rel-list">
+        <li><strong>Verifiable multi-agent consensus for Claude</strong> — <code>WeightedVote</code>, <code>Debate</code> revision rounds, <code>Coordinator</code> parallel decomposition.</li>
+        <li><strong>Ed25519 signed receipts</strong>; JSON / W3C Verifiable Credential / Nostr NIP-78 transports; MCP server with <code>reach_consensus</code> + <code>verify_consensus</code>.</li>
+        <li><strong>Lean base:</strong> 4 dependencies; <code>[mcp] [nostr] [runner] [persist]</code> opt-in. CI matrix: Ubuntu + Windows × Python 3.11–3.13.</li>
+      </ul>
+    </article>
+
+    <article class="release old">
+      <div class="rel-meta">
+        <span class="rel-ver">v0.1.0</span>
+        <span class="rel-date">2026-07-24</span>
+        <a class="rel-link" href="https://github.com/JordanNewell/tractum/releases/tag/v0.1.0">release notes →</a>
+      </div>
+      <h2 class="rel-head">Pre-release platform build.</h2>
+      <ul class="rel-list">
+        <li class="fix"><strong>Next.js dashboard + FastAPI runner scaffolding</strong> — superseded by the 0.2.0 rewrite around the SDK + consensus wedge; the dashboard is deferred.</li>
+      </ul>
+    </article>
+
+  </div>
+</main>
+
+<footer>
+  <div class="foot-meta">
+    <span>© 2026 Jordan Newell</span><span class="sep">·</span><span>BUSL-1.1</span><span class="sep">·</span><a href="https://pypi.org/project/tractum/" style="color:var(--muted)">v0.5.0</a>
+  </div>
+  <div class="foot-icons">
+    <a href="https://jordannewell.com" rel="noopener"><img src="assets/jordannewell.com.N.logo.tractum.png" alt="N" class="newell-logo"></a>
+  </div>
+</footer>
+
+<script>
+  document.querySelector('.theme-toggle').addEventListener('click', () => {
+    const light = document.documentElement.classList.toggle('light');
+    try { localStorage.setItem('tractum-theme', light ? 'light' : 'dark'); } catch {}
+  });
+</script>
+</body>
+</html>
